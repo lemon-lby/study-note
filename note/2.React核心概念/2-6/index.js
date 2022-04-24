@@ -1,8 +1,8 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import Ball from "./components/Ball";
+import BallList from "./components/BallList";
 
 
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
-
+root.render(<BallList/>)

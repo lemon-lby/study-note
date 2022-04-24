@@ -1,8 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
-
+import Comp from "./components/Comp";
 
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
+
+
+root.render(<Comp>
+    <h1>dasds</h1>
+</Comp>);
 

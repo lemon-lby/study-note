@@ -1,8 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
-
+import PagerTest from "./components/PagerTest";
 
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
-
+root.render(<PagerTest />);
