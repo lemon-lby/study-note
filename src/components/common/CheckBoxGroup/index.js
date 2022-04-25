@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
 import types from "../../../utils/commonTypes"
 import PropTypes from "prop-types"
+import withDataGroup from '../hoc/withDataGroup'
 
-export default class CheckBoxGroup extends Component {
-
-    /**
-     * 默认属性值
-     */
-    static defaultProps = {
-        datas: [],
-        chooseDatas: []
-    }
-
+class CheckBox extends Component {
     static propTypes = {
-        datas: types.groupDatas.isRequired,
         name: PropTypes.string.isRequired,
-        chooseDatas: types.chooseDatas,
-        onChange: PropTypes.func
+        chooseDatas: types.chooseDatas.isRequired,
+        onChange: PropTypes.func,
+        info: types.singleData.isRequired
     }
-
     handleChange = e => {
         let newArr;
         if (e.target.checked) {
@@ -26,29 +17,21 @@ export default class CheckBoxGroup extends Component {
         } else {
             newArr = this.props.chooseDatas.filter(item => item !== e.target.value)
         }
-        this.props.onChange && this.props.onChange(newArr,)
-    }
-
-    getAllCheckBoxs() {
-        return this.props.datas.map(item => (
-            <label key={item.value}>
-                <input
-                    type="checkbox"
-                    name={this.props.name}
-                    value={item.value}
-                    checked={this.props.chooseDatas.includes(item.value)}
-                    onChange={this.handleChange}
-                />
-                {item.text}
-            </label>
-        ))
+        this.props.onChange && this.props.onChange(newArr)
     }
     render() {
-        const bs = this.getAllCheckBoxs();
         return (
-            <div>
-                {bs}
-            </div>
-        )
+            <label>
+                <input
+                    type="checkbox"
+                    name={this.props.info.name}
+                    value={this.props.info.value}
+                    checked={this.props.chooseDatas.includes(this.props.info.value)}
+                    onChange={this.handleChange}
+                />
+                {this.props.info.text}
+            </label>)
     }
 }
+
+export default withDataGroup(CheckBox)

@@ -1,53 +1,29 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types"
 import types from "../../../utils/commonTypes"
-/**
- * 一组单选框
- */
-export default class CheckBoxGroup extends Component {
+import withDataGroup from '../hoc/withDataGroup'
 
-    /**
-     * 默认属性值
-     */
-    static defaultProps = {
-        datas: [],
-        value: ""
-    }
-
+class Radio extends Component {
     static propTypes = {
-        datas: types.groupDatas.isRequired,
         name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
+        info: types.singleData.isRequired,//当前单选框的value值
+        value: PropTypes.string.isRequired,//当前选中的value值
         onChange: PropTypes.func
     }
-
-    handleChange = e => {
-        this.props.onChange && this.props.onChange(e.target.value, this.props.name, e)
-    }
-    /**
-     * 得到一组单选框
-     * @returns 
-     */
-    getRadios() {
-        return this.props.datas.map(item => (
-            <label key={item.value}>
-                <input
-                    type="radio"
-                    name={this.props.name}
-                    value={item.value}
-                    checked={this.props.value === item.value}
-                    onChange={this.handleChange}
-                />
-                {item.text}
-            </label>
-        ))
-    }
     render() {
-        const bs = this.getRadios();
-        return (
-            <div>
-                {bs}
-            </div>
-        )
+        return <label key={this.props.info.value}>
+            <input
+                type="radio"
+                name={this.props.name}
+                value={this.props.info.value}
+                checked={this.props.value === this.props.info.value}
+                onChange={() => {
+                    this.props.onChange && this.props.onChange(this.props.info.value)
+                }}
+            />
+            {this.props.info.text}
+        </label>
     }
 }
+
+export default withDataGroup(Radio);
